@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>آلبوم اختصاصی شعرهای عروسی</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-mid: #1a1a2e;
+            --bg-light: #16213e;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-hover: rgba(255, 255, 255, 0.08);
+            --gold-light: #FDE08B;
+            --gold-main: #D4AF37;
+            --gold-dark: #B8860B;
+            --gold-glow: rgba(212, 175, 55, 0.5);
+            --text-main: #f8fafc;
+            --gold-gradient: linear-gradient(135deg, #FFFDF5 0%, #FCEABB 40%, #D4AF37 100%);
+            --gold-badge-gradient: linear-gradient(135deg, #B8860B 0%, #D4AF37 30%, #FDE08B 50%, #D4AF37 70%, #B8860B 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-mid), var(--bg-light));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 50px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+        .orb-1 { width: 300px; height: 300px; background: #e11d48; top: -50px; right: -50px; }
+        .orb-2 { width: 400px; height: 400px; background: #7c3aed; bottom: -100px; left: -100px; animation-delay: -5s; }
+        .orb-3 { width: 200px; height: 200px; background: var(--gold-main); top: 40%; left: 20%; opacity: 0.2; animation-delay: -2s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            text-shadow: 0 0 20px var(--gold-glow);
+            letter-spacing: 1px;
+            animation: fadeInDown 1s ease;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            animation: fadeInUp 1s ease;
+        }
+
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease backwards;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px var(--gold-glow) inset;
+            background: var(--glass-hover);
+        }
+
+        .code-badge {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 5;
+            background: var(--gold-badge-gradient);
+            background-size: 200% auto;
+            color: #2b1a00;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 
+                0 4px 10px rgba(0, 0, 0, 0.4), 
+                0 0 15px var(--gold-glow),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8),
+                inset 0 -2px 4px rgba(139, 101, 8, 0.4);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .code-badge::before {
+            content: '◆';
+            font-size: 0.6rem;
+            color: #8B6508;
+        }
+
+        .card:hover .code-badge {
+            background-position: right center;
+            transform: scale(1.08);
+            box-shadow: 
+                0 6px 15px rgba(0, 0, 0, 0.5), 
+                0 0 25px var(--gold-glow),
+                inset 0 1px 2px rgba(255, 255, 255, 0.9),
+                inset 0 -2px 4px rgba(139, 101, 8, 0.5);
+        }
+
+        .paper-canvas {
+            width: 100%;
+            height: 180px;
+            background: var(--gold-gradient);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.5), 
+                        inset 0 0 5px rgba(184, 134, 11, 0.3), 
+                        0 4px 10px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .paper-canvas::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            transition: 0.6s;
+        }
+
+        .card:hover .paper-canvas::after {
+            left: 200%;
+        }
+
+        .card:hover .paper-canvas {
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.8), 
+                        0 8px 15px rgba(0, 0, 0, 0.5), 
+                        0 0 25px var(--gold-glow);
+            border-color: #FFFFFF;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+        }
+
+        .card span {
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 5px 15px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card:hover span {
+            color: #000;
+            background: var(--gold-light);
+            border-color: var(--gold-main);
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            width: 90%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 24px;
+            background: var(--gold-gradient);
+            padding: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 
+                        0 0 50px rgba(212, 175, 55, 0.4),
+                        inset 0 0 40px rgba(255, 255, 255, 0.4);
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.1s ease-out;
+            transform-origin: center;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-drag: none;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+        }
+
+        .lightbox-img:active {
+            cursor: grabbing;
+        }
+
+        /* ================= پلاک اصلاح شده کد در لایت‌باکس ================= */
+        .lightbox-code-badge {
+            position: absolute;
+            top: 20px; /* آمد داخل کادر */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1015;
+            /* پس‌زمینه تیره لوکس */
+            background: linear-gradient(135deg, #1a1a1a 0%, #332200 50%, #1a1a1a 100%);
+            background-size: 200% auto;
+            color: var(--gold-light); /* متن طلایی درخشان */
+            padding: 10px 35px;
+            border-radius: 30px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            border: 2px solid var(--gold-main);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.8), 
+                0 0 20px var(--gold-glow),
+                inset 0 1px 3px rgba(255, 255, 255, 0.3);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            animation: badgeGlow 3s ease-in-out infinite alternate;
+        }
+
+        .lightbox-code-badge::before,
+        .lightbox-code-badge::after {
+            content: '✦';
+            color: var(--gold-main);
+            font-size: 1rem;
+        }
+
+        @keyframes badgeGlow {
+            0% { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8), 0 0 15px var(--gold-glow), inset 0 1px 3px rgba(255, 255, 255, 0.3); }
+            100% { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8), 0 0 30px var(--gold-glow), 0 0 50px rgba(212, 175, 55, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.3); }
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            z-index: 1010;
+        }
+
+        .glass-btn:hover {
+            background: var(--gold-light);
+            color: #000;
+            border-color: var(--gold-main);
+            box-shadow: 0 0 20px var(--gold-glow);
+            transform: scale(1.1);
+        }
+
+        .close-btn {
+            top: 30px;
+            right: 30px;
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+        }
+
+        .nav-btn {
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+        }
+
+        .prev-btn { right: 30px; }
+        .next-btn { left: 30px; }
+
+        .nav-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .zoom-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1010;
+        }
+
+        .zoom-controls .glass-btn {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            top: auto;
+            right: auto;
+            left: auto;
+            transform: none;
+        }
+
+        .zoom-controls .glass-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .hint {
+            position: absolute;
+            bottom: 15px;
+            right: 30px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            z-index: 1010;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .gallery { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+            .paper-canvas { height: 140px; padding: 8px; }
+            .card span { font-size: 0.8rem; padding: 4px 10px; }
+            
+            .code-badge { top: 18px; right: 18px; padding: 5px 10px; font-size: 0.75rem; }
+            
+            .close-btn { top: 15px; right: 15px; width: 45px; height: 45px; font-size: 1.5rem; }
+            .nav-btn { width: 45px; height: 45px; font-size: 1.5rem; }
+            .prev-btn { right: 15px; }
+            .next-btn { left: 15px; }
+            .zoom-controls { bottom: 15px; padding: 8px 15px; gap: 10px; }
+            .zoom-controls .glass-btn { width: 35px; height: 35px; font-size: 1rem; }
+            .hint { display: none; }
+            .lightbox-content { padding: 15px; height: 70%; }
+            /* اصلاح پلاک در موبایل */
+            .lightbox-code-badge { font-size: 0.95rem; padding: 8px 20px; top: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <header>
+        <h1>✨ آلبوم شعرهای عروسی ✨</h1>
+        <p>برای مشاهده، روی هر شعر کلیک کنید</p>
+    </header>
+
+    <div class="gallery-container">
+        <div class="gallery" id="gallery"></div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <button class="glass-btn close-btn" id="close-btn">&times;</button>
+        <button class="glass-btn nav-btn prev-btn" id="prev-btn">&#10095;</button>
+        
+        <div class="lightbox-content" id="lightbox-content">
+            <!-- پلاک کد شعر -->
+            <div class="lightbox-code-badge" id="lightbox-code">کد شعر ۰۲</div>
+            <img class="lightbox-img" id="lightbox-img" src="" alt="شعر عروسی">
+        </div>
+
+        <button class="glass-btn nav-btn next-btn" id="next-btn">&#10094;</button>
+
+        <div class="zoom-controls">
+            <button class="glass-btn" id="zoom-out-btn" title="کوچک‌نمایی">&#8722;</button>
+            <button class="glass-btn" id="reset-zoom-btn" title="اندازه اصلی">&#8634;</button>
+            <button class="glass-btn" id="zoom-in-btn" title="بزرگ‌نمایی">&#43;</button>
+        </div>
+
+        <div class="hint">برای جابجایی از کلیدهای جهت‌دار یا کشیدن انگشت استفاده کنید</div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const gallery = document.getElementById('gallery');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCode = document.getElementById('lightbox-code');
+            
+            const closeBtn = document.getElementById('close-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const zoomInBtn = document.getElementById('zoom-in-btn');
+            const zoomOutBtn = document.getElementById('zoom-out-btn');
+            const resetZoomBtn = document.getElementById('reset-zoom-btn');
+
+            const totalFiles = 98;
+            const startFile = 2;
+            let currentIndex = startFile;
+            
+            let scale = 1;
+            let panX = 0;
+            let panY = 0;
+            let isDragging = false;
+            let startX, startY;
+
+            function toPersianNumber(num) {
+                const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+                return num.toString().split('').map(d => persianDigits[parseInt(d)]).join('');
+            }
+
+            for (let i = startFile; i <= totalFiles; i++) {
+                let fileNumber = i.toString().padStart(2, '0');
+                let fileName = `${fileNumber}.svg`;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.animationDelay = `${(i - startFile) * 0.03}s`;
+
+                const codeBadge = document.createElement('div');
+                codeBadge.className = 'code-badge';
+                codeBadge.textContent = `کد ${toPersianNumber(fileNumber)}`;
+
+                const paperCanvas = document.createElement('div');
+                paperCanvas.className = 'paper-canvas';
+
+                const img = document.createElement('img');
+                img.src = fileName;
+                img.alt = `شعر شماره ${i}`;
+                img.loading = "lazy";
+
+                paperCanvas.appendChild(img);
+
+                const span = document.createElement('span');
+                span.textContent = `شعر ${toPersianNumber(i)}`;
+
+                card.appendChild(codeBadge);
+                card.appendChild(paperCanvas);
+                card.appendChild(span);
+
+                card.addEventListener('click', () => {
+                    openLightbox(i);
+                });
+
+                gallery.appendChild(card);
+            }
+
+            function openLightbox(index) {
+                currentIndex = index;
+                updateImage();
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                resetZoom();
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                resetZoom();
+            }
+
+            function updateImage() {
+                let fileNumber = currentIndex.toString().padStart(2, '0');
+                lightboxImg.src = `${fileNumber}.svg`;
+                lightboxCode.textContent = `کد شعر ${toPersianNumber(fileNumber)}`;
+                resetZoom();
+            }
+
+            function navigate(direction) {
+                if (direction === 'next') {
+                    currentIndex = currentIndex >= totalFiles ? startFile : currentIndex + 1;
+                } else if (direction === 'prev') {
+                    currentIndex = currentIndex <= startFile ? totalFiles : currentIndex - 1;
+                }
+                updateImage();
+            }
+
+            function updateTransform() {
+                lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+            }
+
+            function resetZoom() {
+                scale = 1;
+                panX = 0;
+                panY = 0;
+                updateTransform();
+            }
+
+            function zoomIn() {
+                scale = Math.min(scale + 0.5, 5);
+                updateTransform();
+            }
+
+            function zoomOut() {
+                scale = Math.max(scale - 0.5, 1);
+                if (scale === 1) { panX = 0; panY = 0; }
+                updateTransform();
+            }
+
+            closeBtn.addEventListener('click', closeLightbox);
+            nextBtn.addEventListener('click', () => navigate('next'));
+            prevBtn.addEventListener('click', () => navigate('prev'));
+            
+            zoomInBtn.addEventListener('click', (e) => { e.stopPropagation(); zoomIn(); });
+            zoomOutBtn.addEventListener('click', (e) => { e.stopPropagation(); zoomOut(); });
+            resetZoomBtn.addEventListener('click', (e) => { e.stopPropagation(); resetZoom(); });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigate('next');
+                if (e.key === 'ArrowRight') navigate('prev');
+                if (e.key === '+' || e.key === '=') zoomIn();
+                if (e.key === '-') zoomOut();
+                if (e.key === '0') resetZoom();
+            });
+
+            lightbox.addEventListener('wheel', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                e.preventDefault();
+                if (e.deltaY < 0) zoomIn();
+                else zoomOut();
+            }, { passive: false });
+
+            lightboxImg.addEventListener('mousedown', (e) => {
+                if (scale > 1) {
+                    isDragging = true;
+                    startX = e.clientX - panX;
+                    startY = e.clientY - panY;
+                    lightboxImg.style.transition = 'none';
+                }
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                panX = e.clientX - startX;
+                panY = e.clientY - startY;
+                updateTransform();
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                lightboxImg.style.transition = 'transform 0.1s ease-out';
+            });
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+            let initialDistance = 0;
+
+            lightboxImg.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                    if (scale > 1) {
+                        isDragging = true;
+                        startX = e.touches[0].clientX - panX;
+                        startY = e.touches[0].clientY - panY;
+                    }
+                } else if (e.touches.length === 2) {
+                    initialDistance = Math.hypot(
+                        e.touches[0].pageX - e.touches[1].pageX,
+                        e.touches[0].pageY - e.touches[1].pageY
+                    );
+                }
+            }, { passive: false });
+
+            lightboxImg.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && scale > 1) {
+                    e.preventDefault();
+                    panX = e.touches[0].clientX - startX;
+                    panY = e.touches[0].clientY - startY;
+                    updateTransform();
+                } else if (e.touches.length === 2) {
+                    e.preventDefault();
+                    const currentDistance = Math.hypot(
+                        e.touches[0].pageX - e.touches[1].pageX,
+                        e.touches[0].pageY - e.touches[1].pageY
+                    );
+                    if (initialDistance > 0) {
+                        const zoomFactor = currentDistance / initialDistance;
+                        scale = Math.min(Math.max(1, scale * zoomFactor), 5);
+                        updateTransform();
+                    }
+                }
+            }, { passive: false });
+
+            lightboxImg.addEventListener('touchend', (e) => {
+                isDragging = false;
+                if (scale === 1 && e.changedTouches.length === 1) {
+                    touchEndX = e.changedTouches[0].clientX;
+                    touchEndY = e.changedTouches[0].clientY;
+                    handleSwipe();
+                }
+                initialDistance = 0;
+            });
+
+            function handleSwipe() {
+                const xDiff = touchEndX - touchStartX;
+                const yDiff = touchEndY - touchStartY;
+                const minSwipeDistance = 50;
+
+                if (Math.abs(xDiff) > Math.abs(yDiff) && Math.abs(xDiff) > minSwipeDistance) {
+                    if (xDiff > 0) navigate('prev');
+                    else navigate('next');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
